@@ -1,0 +1,1127 @@
+Dim TipoPersonal As Integer 'Usado
+Dim TipoCuenta As Boolean 'Usado Nuevo
+
+Dim LetraCodigo     As String
+Dim CodigoCompleto  As String
+
+Dim DniNieFinal     As String
+
+Dim Fecha As Date
+
+Dim TipoDeVia       As String
+Dim Direccion       As String
+Dim NumeroPortal    As String
+Dim NumeroPiso      As String
+Dim LetraPiso       As String
+Dim CodPostal       As String
+
+Private Sub CommandButtonBorrar_Click()
+    TextBoxCodigo = CodigoCompleto
+    TextBoxNombre.Text = ""
+    TextBox1Apellido.Text = ""
+    TextBox2Apellido.Text = ""
+    TextBoxTelefono.Text = ""
+    TextBoxMovil.Text = ""
+    TextBoxCorreoElectronico.Text = ""
+    TextBoxDireccion.Text = ""
+    TextBoxNumPortal = ""
+    TextBoxNumPiso = ""
+    TextBoxLetraPiso = ""
+    TextBoxCodPost = ""
+    TextBoxNif = ""
+    TextBoxFechaRegistro = Fecha
+    TextBoxFechaNacimiento = Fecha
+    TextBoxPaisCuenta = ""
+    TextBoxCuentaEntidadBancaria = ""
+    TextBoxCuentaBancariaOficina = ""
+    TextBoxCuentaBancariaControl = ""
+    TextBoxCuentaBancariaNumero = ""
+    TextBoxSeguridadSocial.Text = ""
+    TextBoxTipoDocumento.Text = ""
+End Sub
+
+Private Sub CommandButtonMostrar_Click()
+    If (TipoPersonal = 1) Then
+       UserForm1.Show
+    ElseIf (TipoPersonal = 2) Then
+       UserForm2.Show
+    ElseIf (TipoPersonal = 3) Then
+        UserForm3.Show
+    ElseIf (TipoPersonal = 4) Then
+        UserForm4.Show
+    End If
+End Sub
+
+Private Sub CommandButtonGuardar_Click()
+ 'Introducir los datos
+    If (Formulario = True) Then
+        Cells(Codigo + 1, 1).Value = CodigoCompleto
+        Cells(Codigo + 1, 2).Value = TextBoxNombre.Text
+        Cells(Codigo + 1, 3).Value = TextBoxApellido1.Text
+        Cells(Codigo + 1, 4).Value = TextBoxApellido2.Text
+        Cells(Codigo + 1, 5).Value = TextBoxTelefono.Text
+        Cells(Codigo + 1, 6).Value = TextBoxMovil.Text
+        Cells(Codigo + 1, 7).Value = TextBoxCorreo.Text
+        Cells(Codigo + 1, 8).Value = ComboBoxTipo.Text
+        Cells(Codigo + 1, 9).Value = TextBoxDireccion.Text
+        Cells(Codigo + 1, 10).Value = TextBoxNumero.Text
+        Cells(Codigo + 1, 11).Value = TextBoxPiso.Text
+        Cells(Codigo + 1, 12).Value = TextBoxLetra.Text
+        Cells(Codigo + 1, 13).Value = TextBoxCodPost.Text
+        Cells(Codigo + 1, 14).Value = Provincia
+        Cells(Codigo + 1, 15).Value = TextBoxSegSoc.Text
+        Cells(Codigo + 1, 16).Value = DniNieFinal
+        Cells(Codigo + 1, 17).Value = TextBoxCuentaBanc.Text
+        Cells(Codigo + 1, 18).Value = FechaReg
+        Cells(Codigo + 1, 19).Value = TextBoxFechaNac.Text
+        Cells(Codigo + 1, 20).Value = TextBoxSexo.Text
+        Cells(Codigo + 1, 21).Value = TextBoxEstadoCiv.Text
+    End If
+End Sub
+
+Function Formulario()
+    Dim Codigo              As Integer
+        Dim CondicionNombre     As Boolean
+        Dim CondicionApellido1  As Boolean
+        Dim CondicionApellido2  As Boolean
+        Dim CondicionTelefono   As Boolean
+        Dim CondicionMovil      As Boolean
+        Dim CondicionCorreo     As Boolean
+        Dim CondicionDireccion  As Boolean
+        Dim CondicionSegSoc     As Boolean
+        Dim CondicionDNI        As Boolean
+        Dim CondicionCuentaBanc As Boolean
+        Dim CondicionFechaReg   As Boolean
+        Dim CondicionFechaNac   As Boolean
+        Dim CondicionSexo       As Boolean
+        Dim CondicionEstadoCiv  As Boolean
+
+    Codigo = 0
+    CondicionNombre = False
+        CondicionApellido1 = False
+        CondicionApellido2 = False
+        CondicionTelefono = False
+        CondicionMovil = False
+        CondicionCorreo = False
+        CondicionDireccion = False
+        CondicionSegSoc = False
+        CondicionDNI = False
+        CondicionCuentaBanc = False
+        CondicionFechaReg = False
+        CondicionFechaNac = False
+        CondicionSexo = False
+        CondicionEstadoCiv = False
+
+'Condiciones en función de las funciones
+   Codigo = Calc_Hoja(TipoPersonal)
+
+   If (Validar_Nombre_Ape(TextBoxNombre.Text) = True) Then
+        CondicionNombre = True
+    Else: MsgBox ("Error en el nombre")
+    End If
+
+    If (Validar_Nombre_Ape(TextBox1Apellido.Text) = True) Then
+       CondicionApellido1 = True
+    Else: MsgBox ("Error en el primer apellido")
+    End If
+
+    If (Validar_Nombre_Ape(TextBox2Apellido.Text) = True) Then
+        CondicionApellido2 = True
+    Else: MsgBox ("Error en el segundo apellido")
+    End If
+
+    If (Validar_Telefono(TextBoxTelefono.Text) = True) Then
+        CondicionTelefono = True
+   Else: MsgBox ("Error en el telefono fijo")
+    End If
+
+    If (Validar_Movil(TextBoxMovil.Text) = True) Then
+        CondicionMovil = True
+    Else: MsgBox ("Error en el telefono movil")
+    End If
+
+    If (Validar_Correo(TextBoxCorreoElectronico.Text) = True) Then
+        CondicionCorreo = True
+    Else: MsgBox ("Error en el correo electronico")
+    End If
+
+    If (Validar_Direccion() = True) Then
+        CondicionDireccion = True
+    Else: MsgBox ("Error en la direccion")
+    End If
+
+    If (Validar_SegSoc(TextBoxSeguridadSocial.Text) = True) Then
+        CondicionSegSoc = True
+    Else: MsgBox ("Error en el número de la seguridad social")
+    End If
+
+    If (Validar_Dni(TextBoxTipoDocumento.Text) = True) Then
+        CondicionDNI = True
+    Else: MsgBox ("Error en el Nie/Dni")
+    End If
+
+    If (Validar_Tipo_Cuenta() = True) Then
+        CondicionCuentaBanc = True
+    Else: MsgBox ("Error en el número de cuenta bancaria")
+    End If
+
+    If (Validar_FechaReg() = True) Then
+        CondicionFechaReg = True
+    Else: MsgBox ("Error en la fecha de registro")
+    End If
+
+    If (Validar_FechaNac() = True) Then
+        CondicionFechaNac = True
+    Else: MsgBox ("Error en la fecha de nacimiento")
+    End If
+
+    If (Validar_Sexo() = True) Then
+        CondicionSexo = True
+    Else: MsgBox ("Error en la seleccion de sexo")
+    End If
+
+    If (Validar_EstadoCiv() = True) Then
+            CondicionEstadoCiv = True
+    Else: MsgBox ("Error en la seleccion de estado civil")
+    End If
+
+    If (CondicionNombre = True And CondicionApellido1 = True And CondicionApellido2 = True And CondicionTelefono = True And CondicionMovil = True And CondicionCorreo = True And CondicionDireccion = True And CondicionSegSoc = True And CondicionDNI = True And CondicionCuentaBanc = True And FechaReg = True And CondicionFechaNac = True And CondicionSexo = True And CondicionEstadoCiv = True) Then
+        Formulario = True
+    Else: Formulario = False
+    End If
+End Function
+
+Sub UserForm_Initialize()
+    'cuando entra en el from carga partes del contenido
+    'las opciones de los array
+    'los ejemplos de fecha en los campos oportunos
+    CampoObligatorio.BackColor = RGB(180, 111, 249)
+    TipoPersonal = 0
+    Mostrar_botones (TipoPersonal)
+    
+    ComboBoxTipoCuenta.List = Array("TIPO", "IBAN", "CCC")
+    ComboBoxEstadoCivil.List = Array("Estado", "Soltero", "Casado", "Separado", "Divorciado", "Viudo")
+
+    ' Cargo la fecha de hoy en los campos date
+    Fecha = Format(Now(), "dd/mm/yyyy")
+    TextBoxFechaRegistro.Text = Fecha
+    TextBoxFechaNacimiento.Text = Fecha
+
+    ComboBoxDireccion.AddItem "Calle"
+    ComboBoxDireccion.AddItem "Barrio"
+    ComboBoxDireccion.AddItem "Paseo"
+    ComboBoxDireccion.AddItem "Avenida"
+    
+End Sub
+
+Function Mostrar_botones(TipoPersonal As Integer)
+    'Esta funcion mostra los botones solo cuando se haya seleccionado un tipo de personal
+    If TipoPersonal = 0 Then
+        CommandButtonGuardar.Visible = False
+        CommandButtonBorrar.Visible = False
+        CommandButtonMostrar.Visible = False
+    Else
+        CommandButtonGuardar.Visible = True
+        CommandButtonBorrar.Visible = True
+        CommandButtonMostrar.Visible = True
+    End If
+End Function
+
+'Dependiendo del radio button que se escoja se cambia tanto el color como los campos requeridos ademas de llamar a la funcion Calc_Hoja la cual activa la pagina requerida
+Private Sub OptionButtonClienteExterno_Click()
+    TipoPersonal = 1
+    Calc_Hoja (TipoPersonal)
+    Personalizacion (TipoPersonal)
+    Mostrar_botones (TipoPersonal)
+    TextBoxCodigo.Text = CodigoCompleto
+End Sub
+Private Sub OptionButtonClienteInterno_Click()
+    TipoPersonal = 2
+    Calc_Hoja (TipoPersonal)
+    Personalizacion (TipoPersonal)
+    Mostrar_botones (TipoPersonal)
+    TextBoxCodigo.Text = CodigoCompleto
+End Sub
+Private Sub OptionButtonEmpleado_Click()
+    TipoPersonal = 3
+    Calc_Hoja (TipoPersonal)
+    Personalizacion (TipoPersonal)
+    Mostrar_botones (TipoPersonal)
+    TextBoxCodigo.Text = CodigoCompleto
+End Sub
+Private Sub OptionButtonProveedor_Click()
+    TipoPersonal = 4
+    Calc_Hoja (TipoPersonal)
+    Personalizacion (TipoPersonal)
+    Mostrar_botones (TipoPersonal)
+    TextBoxCodigo.Text = CodigoCompleto
+End Sub
+
+Function Calc_Hoja(quehoja As Integer)
+    Dim i As Byte
+    NumHoja = 0
+
+    If (quehoja = 1) Then
+        Sheets("Hoja1").Activate
+        LetraCodigo = "CE"
+    ElseIf (quehoja = 2) Then
+        Sheets("Hoja2").Activate
+        LetraCodigo = "CI"
+    ElseIf (quehoja = 3) Then
+        Sheets("Hoja3").Activate
+        LetraCodigo = "EM"
+    ElseIf (quehoja = 4) Then
+        Sheets("Hoja4").Activate
+        LetraCodigo = "PR"
+    End If
+
+    For i = 1 To 40
+        If Cells(i, 1).Value = "" Then
+            NumHoja = NumHoja
+        Else
+            NumHoja = NumHoja + 1
+            CodigoCompleto = LetraCodigo & " " & NumHoja
+        End If
+    Next
+End Function
+
+Function Validar_FechaReg()
+    Dim FechaReg As Date
+    FechaReg = DateValue(TextBoxFechaRegistro)
+    If (IsDate(FechaReg)) Then
+        If (FechaReg = Date) Then
+                Validar_FechaReg = True
+            End If
+        Else: MsgBox ("La fecha ha de ser la de hoy")
+        End If
+    Else: MsgBox ("Ha de escribir la fecha en formato dd-mm-aaaa")
+End Function
+
+Function Validar_FechaNac()
+    Dim FechaNacimiento As Date
+    FechaNacimiento = TextBoxFechaNacimiento
+
+    If (IsDate(FechaNacimiento)) Then
+        If (FechaNacimiento < Date) Then
+            If (Year(FechaNacimiento) > 1888) Then
+                Validar_FechaNac = True
+            Else: MsgBox ("La fecha ha de ser posterior al 1888")
+            End If
+        Else: MsgBox ("La fecha ha de ser menor que la de hoy")
+        End If
+    Else: MsgBox ("Ha de escribir la fecha en formato dd-mm-aaaa")
+    End If
+End Function
+
+Function Validar_Nombre_Ape(VarNombreApe As String)
+    'Si no es un nombre ni está vacio
+    If IsNumeric(VarNombreApe) = False And VarNombreApe <> " " And VarNombreApe <> "  " And VarNombreApe <> "   " And VarNombreApe <> "    " Then
+        Validar_Nombre_Ape = True
+    'Si es un número o un carácter extraño
+    Else:
+        MsgBox ("Ese nombre/apellido no es valido")
+    End If
+End Function
+
+Function Validar_Telefono(tlf As String)
+    codigosPostales = Array()
+    prefijos = Array(981, 945, 967, 96, 950, 985, 920, 924, 971, 93, 94, 947, 927, 956, 942, 964, 952, 957, 969, 972, 958, 949, 943, 959, 974, 93, 953, 941, 928, 928, 987, 973, 982, 91, 95, 952, 968, 948, 988, 979, 971, 948, 986, 923, 922, 942, 921, 95, 954, 977, 922, 925, 952, 978, 96, 983, 94, 980, 976)
+    Validar_Telefono = False
+    If (Not IsNull(tlf)) Then
+     If (Len(CStr(tlf)) = 9) Then
+         For i = 0 To 58
+             If (Int(prefijos(i)) = Int(Left(tlf, 2)) Or Int(prefijos(i)) = Int(Left(tlf, 3))) Then
+                 Validar_Telefono = True
+              End If
+         Next
+        End If
+    End If
+End Function
+
+Function Validar_Movil(mvl As String)
+    Validar_Movil = False
+    If (Not IsNull(mvl)) Then
+        If (Len(CStr(mvl)) = 9) Then
+            If (Int(Left(mvl, 1) = 6 Or Int(Left(mvl, 1) = 7))) Then
+              Validar_Movil = True
+            End If
+        End If
+    End If
+End Function
+
+Function Validar_Correo(Correo As String)
+    Dim NumeroDeLaArroba As Integer
+    Dim NumeroDelPunto As Integer
+    Dim NumeroDelProveedor As Integer
+
+    Dim CharDeLaArroba As String
+    Dim CharDelpunto As String
+
+    Dim CorreoIzqArroba As String
+    Dim CorreoDerArroba As String
+    Dim CorreoIzqPunto As String
+    Dim CorreoDerPunto As String
+    Dim ProveedorDeCorreo As String
+
+    CharDeLaArroba = "@"
+    CharDelpunto = "."
+
+    NumeroDeLaArroba = InStr(Correo, CharDeLaArroba)
+    NumeroDelPunto = InStr(Correo, CharDelpunto)
+
+    If (NumeroDeLaArroba <> 0 And NumeroDelPunto <> 0) Then
+        CorreoIzqArroba = Left(Correo, NumeroDeLaArroba - 1)
+        CorreoDerArroba = Mid(Correo, NumeroDeLaArroba + 1, Len(Correo))
+        CorreoIzqPunto = Left(Correo, NumeroDelPunto - 1)
+        CorreoDerPunto = Mid(Correo, NumeroDelPunto + 1, Len(Correo))
+        NumProveedor = NumeroDelPunto - NumeroDeLaArroba
+        ProveedorDeCorreo = Mid(Correo, NumeroDeLaArroba + 1, NumProveedor - 1)
+
+        If (Len(CorreoDerPunto) = 2 Or Len(CorreoDerPunto) = 3) Then
+            Validar_Correo = True
+        End If
+    End If
+End Function
+
+Function Validar_SegSoc(ss As String)
+    Validar_SegSoc = False
+    provincias = Array("01", "02", "03", "04", "33", "05", "06", "07", "08", "09", "10", "11", "39", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "27", "28", "29", "30", "31", "32", "34", "35", "36", "26", "37", "38", "40", "41", "42", "43", "44", "45", "46", "47", "48", "50", "53", "66")
+    If (IsNumeric(ss)) Then
+        Validar_SegSoc = True
+    End If
+    If (Len(ss) = 12) Then
+        Validar_SegSoc = True
+    End If
+    For i = 0 To 50
+        If (provincias(i) = Left(ss, 2)) Then
+        Validar_SegSoc = True
+        End If
+    Next
+
+    Dim izq As String
+    Dim dch As String
+    Dim variable As String
+    
+	izq = Left(ss, 10)
+    dch = Right(ss, 2)
+    
+    izq = CLngLng(izq)
+    dch = CLngLng(dch)
+    variable = CLngLng(izq Mod CLngLng(97))
+    
+    If (izq = drch) Then
+        ss_chk = True
+    End If
+End Function
+
+Function Validar_Dni(dni As String)
+    Dim Letras()
+        Letras = Array("T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E")
+    Dim Result As String
+
+'Si de la segunda cifra hasta la penultima no es numerico está mal
+    If IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False And dni <> " " And dni <> "  " And dni <> "   " And dni <> "" Then
+        MsgBox "Recuerda no introducir caracteres extraños", 16, "Introducir DNI"
+'Si la primera cifra es X es un NIE
+    'x minúscula
+    ElseIf (Left(dni, 1) = "x" Or Left(dni, 1) = "y" Or Left(dni, 1) = "z") Then
+        MsgBox "La letra de su NIE ha de ser mayuscula"
+    'X correcta
+    ElseIf (Left(dni, 1) = "X" Or Left(dni, 1) = "Y" Or Left(dni, 1) = "Z") Then
+    'Si de la X al final menos una no es un número
+        If IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False Then
+            MsgBox "Debe estar seguido por números"
+    'Si el número es demasiado pequeño o grande
+        ElseIf Len(Mid(dni, 2, Len(dni) - 2)) <> 7 Then
+            MsgBox "ERROR : el NIE debe de tener 7 números"
+    'Si está bien
+        Else
+            Result = ((Int(Mid(dni, 2, Len(dni) - 2) Mod 23)))
+        'Si la letra es correcta
+            If (dni = (Left(dni, Len(dni) - 1) & Letras(Result))) Then
+                Validar_Dni = True
+                DniNieFinal = "NIE " & dni
+        'Si no lo es
+            Else:
+                Validar_Dni = False
+                MsgBox "La letra del NIE no coincide"
+            End If
+        End If
+'Time to dni
+    Else:
+    'Si el número es demasiado pequeño o grande
+        If Len(Left(dni, Len(dni) - 1)) < 7 Or Len(Left(dni, Len(dni) - 1)) > 9 Then
+            MsgBox "ERROR : el DNI debe de tener 7, 8 o 9 números"
+    'Si está bien
+        Else
+            Result = ((Int(Left(dni, Len(dni) - 1) Mod 23)))
+        'Si la letra es correcta
+            If (dni = (Left(dni, Len(dni) - 1) & Letras(Result))) Then
+                Validar_Dni = True
+                DniNieFinal = "DNI " & dni
+        'Si no lo es
+            Else:
+                Validar_Dni = False
+                MsgBox "La letra del DNI no coincide"
+            End If
+        End If
+    End If
+End Function
+
+Function Validar_Nif(dni As String)
+    If IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False And dni <> " " And dni <> "  " And dni <> "   " And dni <> "" Then
+        MsgBox "Recuerda no introducir caracteres extraños", 16, "Introducir DNI"
+    ElseIf (Left(dni, 1) = "k" Or Left(dni, 1) = "l" Or Left(dni, 1) = "m") Then
+        MsgBox "La letra de su NIF ha de ser mayuscula"
+    ElseIf (Left(dni, 1) = "K" Or Left(dni, 1) = "L" Or Left(dni, 1) = "M") Then
+        If IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False Then
+            MsgBox "Debe estar seguido por números"
+        ElseIf Len(Mid(dni, 2, Len(dni) - 2)) <> 7 Then
+            MsgBox "ERROR : el NIF debe de tener 7 números"
+        Else
+            Result = ((Int(Mid(dni, 2, Len(dni) - 2) Mod 23)))
+            If (dni = (Left(dni, Len(dni) - 1) & Letras(Result))) Then
+                Validar_Dni = True
+            Else:
+                Validar_Dni = False
+                MsgBox "La letra del NIE no coincide"
+            End If
+        End If
+    End If
+End Function
+
+Function Validar_Sexo()
+    'Si alguno de los radio button esta seleccionado devuelve ture
+    If OptionButtonMujer.Value = True Or OptionButtonHombre.Value = True Then
+        Validar_Sexo = True
+    Else
+        Validar_Sexo = False
+    End If
+End Function
+
+Function Validar_EstadoCiv()
+    'Si algun campo de Estado civil esta seleccionada devuele true en caso contrario false
+    If ComboBoxEstadoCivil.Value = "Soltero" Or ComboBoxEstadoCivil.Value = "Casado" Or ComboBoxEstadoCivil.Value = "Separado" Or ComboBoxEstadoCivil.Value = "Divorciado" Or ComboBoxEstadoCivil.Value = "Viudo" Then
+        Validar_EstadoCiv = True
+    Else
+        Validar_EstadoCiv = False
+        End
+   End If
+End Function
+
+Function Validar_Tipo_Cuenta() As Boolean
+    'esta funcion devuelve true si no esta esta selecccionado TIPO
+    'Creamos unas variables para recores los campos necesarios en el orden necesario segun el procedimiento que se necesite
+    Dim CuentaCCCPais As String
+    Dim CuentaCCC As String
+    Dim CuentaIBAN As String
+
+    CuentaCCCPais = TextBoxPaisCuenta
+    CuentaCCC = TextBoxCuentaBancariaEntidad & TextBoxCuentaBancariaOficina & TextBoxCuentaBancariaControl & TextBoxCuentaBancariaNumero
+    CuentaIBAN = "IBAN" & TextBoxPaisCuenta & CuentaCCC
+
+    'Dependiendo del valor del ComboBoxTipoCuenta se llama a una funcion
+    If ComboBoxTipoCuenta.Value = "IBAN" Or ComboBoxTipoCuenta.Value = "CCC" Then
+        Validar_Tipo_Cuenta = True
+        'Si esta seleccionado IBAN y si la cadena esta bien
+        If ComboBoxTipoCuenta.Value = "IBAN" And ComprobarCadenaCuenta = True Then
+            Call IBANValidacion(CuentaIBAN)
+        ElseIf ComboBoxTipoCuenta.Value = "CCC" Then
+            Call IBANCalculo(CuentaCCCPais, CuentaCCC)
+        End If
+    Else
+        Validar_Tipo_Cuenta = False
+    End If
+End Function
+Function ComprobarCadenaCuenta() As Boolean
+    'Esta funcion devuelve true si la cadena numerica que empieze por dos siglas
+    'contenidas en el array naciones y ademas coincide con el numero de caracteres
+    'correspondiente en el array longitud
+
+    Dim CuentaIBAN As String
+    Dim Naciones As String
+    Dim Longitud As Integer
+    Dim CompararLetras As String
+    Dim ContarCadena As Integer
+    Dim Contardor As Integer
+    Dim indice As Integer
+    Dim numletras As Integer
+
+    CuentaIBAN = TextBoxPaisCuenta & TextBoxCuentaBancariaEntidad & TextBoxCuentaBancariaOficina & TextBoxCuentaBancariaControl & TextBoxCuentaBancariaNumero
+
+    Naciones = Array("AL", "AD", "AZ", "BH", "BE", "BA", "BR", "VG", "BG", "CR", "DK", "DE", "DO", "SV", "EE", "FO", "FI", "FR", "GE", "GI", "GR", "GL", "GB", "GT", "IQ", "IE", "IS", "IL", "IT", "JO", "KZ", "QA", "XK", "HR", "KW", "LV", "LB", "LI", "LT", "LU", "MT", "MR", "MU", "MK", "MD", "MC", "ME", "NL", "NO", "AT", "PK", "PS", "PL", "PT", "RO", "LC", "SM", "ST", "SA", "SE", "CH", "RS", "SC", "SK", "SI", "ES", "TL", "TR", "CZ", "TN", "UA", "HU", "AE", "BY", "CY")
+    Longitud = Array(28, 24, 28, 22, 16, 20, 29, 24, 22, 22, 18, 22, 28, 28, 20, 18, 18, 27, 22, 23, 27, 18, 22, 28, 23, 22, 26, 23, 27, 30, 20, 29, 20, 21, 30, 21, 28, 21, 20, 20, 31, 27, 30, 19, 24, 27, 22, 18, 15, 20, 24, 29, 28, 25, 24, 32, 27, 25, 24, 24, 21, 22, 31, 24, 19, 24, 23, 26, 24, 24, 29, 28, 23, 28, 28)
+    'letras a mayusculas sin espacios y las dos promeras letras
+    Comparar = UCase(Trim(Left(TextBoxPaisCuenta, 2)))
+    Contardor = 0
+
+    'for each asta encontrar la dos letras en el array
+    For Each CompararLetras In Naciones
+
+        'contador para ir a la policion del array longuitud
+        Contardor = Contardor + 1
+        For indice = 0 To Longitud.Contador - 1 Step 1
+            Longitud = Longitud(indice)
+        End
+        'almacenamos en una variable el tamaño de la cuentra introducida
+        numletras = Len(CuentaIBAN)
+
+        'Si coincide la longitud con las letras introducidas se llama a la funcion ComprobarTipoCuenta
+        'que lanzara las funciones de comprobar dependiendo del tipo de cuenta tambien comprueva que todos los caracteres
+        'menos los dos primeros sean numeros
+        If numletras = Longitud And IsNumeric(Right(CuentaIBAN, 2)) Then
+            IBANCalculo = True
+            Call ComprobarTipoCuenta
+        Else
+            IBANCalculo = False
+        End If
+    Next
+End Function
+Function IBANCalculo(Pais As String, Cuenta As String) As String
+    'Esta funcion calcula el iban de las cuentas CCC
+    'Todas las cuentas CCC tienen iban
+    'a esta funcion se la llama desde ComprobarTipoCuenta si se selecciona CCC
+    'devuelve un string que le pasa a la funcion IBANValidacion
+    'que devolvera true si es el iban existe y por lo tanto la cuenta ccc es correcta
+
+    ' Recibe el pais con 2 letras (ES para España)
+    ' Recibe el número de cuenta
+    Dim Letras As String * 26
+    Dim IBAN As String
+    Dim Dividendo As Integer
+    Dim Resto As Integer
+
+    ' Quita los posibles espacios
+    Cuenta = Replace(Cuenta, " ", "")
+
+    ' Calcula el valor de las letras, las quita y añade el valor al final
+    Letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    IBAN = Cuenta & CStr(InStr(1, Letras, Left(Pais, 1)) + 9) & CStr(InStr(1, Letras, Right(Pais, 1)) + 9) & "00"
+
+    For Contador = 1 To Len(IBAN)
+        Dividendo = Resto & Mid(IBAN, Contador, 1)
+        Resto = Dividendo Mod 97
+    Next Contador
+
+    ' tras meter una cuenta CCC y su pais te da el IBAN
+    IBANCalculo = "IBAN" & Pais & Format((98 - Resto), "00") & Cuenta
+
+    MsgBox ("El IBAN es " & Pais & Format((98 - Resto), "00") & " de la cuenta " & Cuenta)
+
+    ' Llamo a la funcion para ver si el IBAN es correcto
+    IBANValidacion (IBANCalculo)
+
+    MsgBox (IBANCalculo)
+End Function
+Function IBANValidacion(IBAN As String) As Boolean
+    ' esta duncion recive un String al ser llamada desde IBANCalculo
+    ' o desde ComprobarTipoCuenta devuelve true si el iban es posible
+
+    ' Recibe el IBAN
+    Dim Letras As String * 26
+    Dim Dividendo As Integer
+    Dim Resto As Integer
+
+    Letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    ' Quita la palabra IBAN
+    IBAN = Replace(IBAN, "IBAN", "")
+
+    ' Quita los posibles espacios
+    IBAN = Replace(IBAN, " ", "")
+
+    ' Calcula el valor de las letras, las quita y añade el valor al final
+    IBAN = Mid(IBAN, 3, Len(IBAN) - 2) & CStr(InStr(1, Letras, Left(IBAN, 1)) + 9) & CStr(InStr(1, Letras, Mid(IBAN, 2, 1)) + 9)
+
+    ' Quita los digitos de control y los pone al final
+    IBAN = Mid(IBAN, 3, Len(IBAN) - 2) & Left(IBAN, 2)
+
+    For Contador = 1 To Len(IBAN)
+        Dividendo = Resto & Mid(IBAN, Contador, 1)
+        Resto = Dividendo Mod 97
+    Next Contador
+
+    If Resto = 1 Then
+        IBANValidacion = True
+        'Se almacena donde corresponda
+        ' vamos que es curro pa ales que yo estoy asta el nacle
+    Else
+        IBANValidacion = False
+        End
+    End If
+End Function
+
+Function Validar_Direccion()
+        Dim menorCodigo As Long
+        Dim mayorCodigo As Long
+        menorCodigo = 1001
+        mayorCodigo = 52080
+
+        If TextBoxDireccion = "" Then
+            MsgBox "Rellenar campos correctamente de DIRECCION"
+        End If
+
+        If TextBoxNumPortal = "" Or Not IsNumeric(TextBoxNumPortal) Then
+            MsgBox "Rellenar correctamente el numero"
+        End If
+
+        If TextBoxCodPost = "" Or Not IsNumeric(TextBoxCodPost) Then
+            MsgBox "Rellenar correctamente el codigo postal"
+        ElseIf TextBoxCodPost < menorCodigo Or TextBoxCodPost > mayorCodigo Then
+            MsgBox "el codigo postal tiene un rango de 1001  a  52080"
+        Else
+            TipoDeVia = ComboBoxDireccion
+            Direccion = TextBoxDireccion
+            NumeroPortal = TextBoxNumPortal
+            NumeroPiso = TextBoxNumPiso
+            LetraPiso = TextBoxLetraPiso
+            CodPostal = TextBoxCodPost
+      End If
+    Provincia = ""
+      ' si la longitud es 4
+    If Len(TextBoxCodPost) = 4 Then
+        longitudMi = Left(TextBoxCodPost, 1)
+
+        If longitudMi = 1 Then
+            Provincia = "Alava/Araba"
+        ElseIf longitudMi = 2 Then
+            Provincia = "Albacete"
+        ElseIf longitudMi = 3 Then
+            Provincia = "Alicante"
+        ElseIf longitudMi = 4 Then
+            Provincia = "Almeria"
+        ElseIf longitudMi = 5 Then
+            Provincia = "Avila"
+        ElseIf longitudMi = 6 Then
+            Provincia = "Badajoz"
+        ElseIf longitudMi = 7 Then
+            Provincia = "Islas Baleares"
+        ElseIf longitudMi = 8 Then
+            Provincia = "Barcelona"
+        ElseIf longitudMi = 9 Then
+            Provincia = "Burgos"
+        End If
+  'si la longitud es igual a 5
+    ElseIf Len(TextBoxCodPost) = 5 Then
+        longitudMax = Left(TextBoxCodPost, 2)
+
+        If longitudMax = 10 Then
+            Provincia = "Caceres"
+        ElseIf longitudMax = 11 Then
+            Provincia = "Cadiz"
+        ElseIf longitudMax = 12 Then
+            Provincia = "Castellon"
+        ElseIf longitudMax = 13 Then
+            Provincia = "Ciudad Real"
+        ElseIf longitudMax = 14 Then
+            Provincia = "Corboda"
+        ElseIf longitudMax = 15 Then
+            Provincia = "La coruña"
+        ElseIf longitudMax = 16 Then
+            Provincia = "Cuenca"
+        ElseIf longitudMax = 17 Then
+            Provincia = "Gerona / Girona"
+        ElseIf longitudMax = 18 Then
+            Provincia = "Granada"
+        ElseIf longitudMax = 19 Then
+            Provincia = "Guadalajara"
+        ElseIf longitudMax = 20 Then
+            Provincia = "Gipuzkoa / Guipuzcoa"
+        ElseIf longitudMax = 21 Then
+            Provincia = "Huelva"
+        ElseIf longitudMax = 22 Then
+            Provincia = "Huesca"
+        ElseIf longitudMax = 23 Then
+            Provincia = "Jaen"
+        ElseIf longitudMax = 24 Then
+            Provincia = "Leon"
+        ElseIf longitudMax = 25 Then
+            Provincia = "Lerida / Lleida"
+        ElseIf longitudMax = 26 Then
+            Provincia = "La Rioja"
+        ElseIf longitudMax = 27 Then
+            Provincia = "Lugo"
+        ElseIf longitudMax = 28 Then
+            Provincia = "Madrid"
+        ElseIf longitudMax = 29 Then
+            Provincia = "Malaga"
+        ElseIf longitudMax = 30 Then
+            Provincia = "Murcia"
+        ElseIf longitudMax = 31 Then
+            Provincia = "Navarra"
+        ElseIf longitudMax = 32 Then
+            Provincia = "Orense / Ourense"
+        ElseIf longitudMax = 33 Then
+            Provincia = "Asturias"
+        ElseIf longitudMax = 34 Then
+            Provincia = "Palencia"
+        ElseIf longitudMax = 35 Then
+            Provincia = "Las Palmas"
+        ElseIf longitudMax = 36 Then
+            Provincia = "Pontevedra"
+        ElseIf longitudMax = 37 Then
+            Provincia = "Salamanca"
+        ElseIf longitudMax = 38 Then
+            Provincia = "S.C.Tenerife"
+        ElseIf longitudMax = 39 Then
+            Provincia = "Cantabria"
+        ElseIf longitudMax = 40 Then
+            Provincia = "Segovia"
+        ElseIf longitudMax = 41 Then
+            Provincia = "Sevilla"
+        ElseIf longitudMax = 42 Then
+            Provincia = "Soria"
+        ElseIf longitudMax = 43 Then
+            Provincia = "Tarragona"
+        ElseIf longitudMax = 44 Then
+            Provincia = "Teruel"
+        ElseIf longitudMax = 45 Then
+            Provincia = "Toledo"
+        ElseIf longitudMax = 46 Then
+            Provincia = "Valencia"
+        ElseIf longitudMax = 47 Then
+            Provincia = "Valladolid"
+        ElseIf longitudMax = 48 Then
+            Provincia = "Bizkaia / Vizcaya"
+        ElseIf longitudMax = 49 Then
+            Provincia = "Zamora"
+        ElseIf longitudMax = 50 Then
+            Provincia = "Zoragoza"
+        ElseIf longitudMax = 51 Then
+            Provincia = "Ceuta"
+        ElseIf longitudMax = 52 Then
+            Provincia = "Melilla"
+        End If
+    End If
+    If (Provincia <> "") Then
+        Validar_Direccion = True
+    End If
+End Function
+
+Function Personalizacion(TipoPersonal As Integer)
+    If (TipoPersonal = 1) Then
+        TipoPersonal = 0
+        ' Cambio a azul el color del fondo 51, 154, 231
+        '51,153,255 azul
+        '180, 111, 249    violeta
+        
+        ' Pongo en verde los campos obligatorios 20, 170, 15
+        ' Pongo el resto de campos en Azul oscuro 15, 76, 170
+
+        Fondo.BackColor = RGB(212, 235, 247)
+        
+        
+        
+        
+        LabelNombre.Visible = True
+        LabelNombre.BackColor = RGB(180, 111, 249)
+        TextBoxNombre.Visible = True
+
+        Label1Apellido.Visible = True
+        Label1Apellido.BackColor = RGB(180, 111, 249)
+        TextBox1Apellido.Visible = True
+
+        Label2Apellido.Visible = True
+        Label2Apellido.BackColor = RGB(51, 153, 255)
+        TextBox2Apellido.Visible = True
+
+        LabelTelefono.Visible = True
+        LabelTelefono.BackColor = RGB(51, 153, 255)
+        TextBoxTelefono.Visible = True
+
+        LabelMovil.Visible = True
+        LabelMovil.BackColor = RGB(180, 111, 249)
+        TextBoxMovil.Visible = True
+
+        LabelTipoDocumento.Visible = True
+        LabelTipoDocumento.BackColor = RGB(180, 111, 249)
+        TextBoxTipoDocumento.Visible = True
+
+        LabelSeguridadSocial.Visible = False
+        TextBoxSeguridadSocial.Visible = False
+
+        LabelCorreoElectronico.Visible = True
+        LabelCorreoElectronico.BackColor = RGB(180, 111, 249)
+        TextBoxCorreoElectronico.Visible = True
+
+        LabelDireccion.Visible = True
+        LabelDireccion.BackColor = RGB(180, 111, 249)
+        LabelNumPortal.BackColor = RGB(180, 111, 249)
+        LabelNumPiso.BackColor = RGB(180, 111, 249)
+        LabelLetraPiso.BackColor = RGB(180, 111, 249)
+        LabelCodPost.BackColor = RGB(180, 111, 249)
+        TextBoxDireccion.Visible = True
+
+        LabelNif.Visible = False
+        TextBoxNif.Visible = False
+
+        LabelCuentaBancaria.Visible = True
+        LabelCuentaBancaria.BackColor = RGB(180, 111, 249)
+        ComboBoxTipoCuenta.Visible = True
+        TextBoxPaisCuenta.Visible = True
+        TextBoxCuentaBancariaEntidad.Visible = True
+        TextBoxCuentaBancariaOficina.Visible = True
+        TextBoxCuentaBancariaControl.Visible = True
+        TextBoxCuentaBancariaNumero.Visible = True
+
+        LabelFechaRegistro.Visible = True
+        LabelFechaRegistro.BackColor = RGB(180, 111, 249)
+        TextBoxFechaRegistro.Visible = True
+
+        LabelCodigo.Visible = True
+        LabelCodigo.BackColor = RGB(51, 153, 255)
+        TextBoxCodigo.Visible = True
+
+        FrameSexo.Visible = False
+        OptionButtonHombre.Visible = False
+        OptionButtonMujer.Visible = False
+
+        LabelEstadoCivil.Visible = False
+        ComboBoxEstadoCivil.Visible = False
+
+        LabelFechaNacimiento.Visible = False
+        TextBoxFechaNacimiento.Visible = False
+
+     ElseIf (TipoPersonal = 2) Then
+        TipoPersonal = 0
+        ' Cambio a azul el color del fondo 20, 4, 210
+        ' Pongo en verde los campos obligatorios 20, 170, 15
+        ' Pongo el resto de campos en Azul oscuro 60, 51, 162
+
+        Fondo.BackColor = RGB(252, 228, 214)
+
+        LabelNombre.Visible = True
+        LabelNombre.BackColor = RGB(180, 111, 249)
+        TextBoxNombre.Visible = True
+
+        Label1Apellido.Visible = True
+        Label1Apellido.BackColor = RGB(180, 111, 249)
+        TextBox1Apellido.Visible = True
+
+        Label2Apellido.Visible = True
+        Label2Apellido.BackColor = RGB(51, 153, 255)
+        TextBox2Apellido.Visible = True
+
+        LabelTelefono.Visible = True
+        LabelTelefono.BackColor = RGB(51, 153, 255)
+        TextBoxTelefono.Visible = True
+
+        LabelMovil.Visible = True
+        LabelMovil.BackColor = RGB(51, 153, 255)
+        TextBoxMovil.Visible = True
+
+        LabelTipoDocumento.Visible = True
+        LabelTipoDocumento.BackColor = RGB(180, 111, 249)
+        TextBoxTipoDocumento.Visible = True
+
+        LabelSeguridadSocial.Visible = False
+        TextBoxSeguridadSocial.Visible = False
+
+        LabelCorreoElectronico.Visible = True
+        LabelCorreoElectronico.BackColor = RGB(180, 111, 249)
+        TextBoxCorreoElectronico.Visible = True
+
+        LabelDireccion.Visible = True
+        LabelDireccion.BackColor = RGB(51, 153, 255)
+        TextBoxDireccion.Visible = True
+
+        LabelDireccion.Visible = True
+        LabelDireccion.BackColor = RGB(51, 153, 255)
+        LabelNumPortal.BackColor = RGB(51, 153, 255)
+        LabelNumPiso.BackColor = RGB(51, 153, 255)
+        LabelLetraPiso.BackColor = RGB(51, 153, 255)
+        LabelCodPost.BackColor = RGB(51, 153, 255)
+        TextBoxDireccion.Visible = True
+        
+        LabelNif.Visible = False
+        TextBoxNif.Visible = False
+
+        LabelCuentaBancaria.Visible = True
+        LabelCuentaBancaria.BackColor = RGB(180, 111, 249)
+        ComboBoxTipoCuenta.Visible = True
+        TextBoxPaisCuenta.Visible = True
+        TextBoxCuentaBancariaEntidad.Visible = True
+        TextBoxCuentaBancariaOficina.Visible = True
+        TextBoxCuentaBancariaControl.Visible = True
+        TextBoxCuentaBancariaNumero.Visible = True
+
+        LabelFechaRegistro.Visible = True
+        LabelFechaRegistro.BackColor = RGB(51, 153, 255)
+        TextBoxFechaRegistro.Visible = True
+
+        LabelCodigo.Visible = True
+        LabelCodigo.BackColor = RGB(51, 153, 255)
+        TextBoxCodigo.Visible = True
+
+        FrameSexo.Visible = False
+        OptionButtonHombre.Visible = False
+        OptionButtonMujer.Visible = False
+
+        LabelEstadoCivil.Visible = False
+        ComboBoxEstadoCivil.Visible = False
+
+        LabelFechaNacimiento.Visible = False
+        TextBoxFechaNacimiento.Visible = False
+
+    ElseIf (TipoPersonal = 3) Then
+        TipoPersonal = 0
+        ' Cambio a Violeta el color del fondo 205, 25, 205
+        ' Pongo en verde los campos obligatorios 20, 170, 15
+        ' Pongo el resto de campos en Violeta oscuro 148, 13, 148
+
+        Fondo.BackColor = RGB(255, 242, 204)
+
+        LabelNombre.Visible = True
+        LabelNombre.BackColor = RGB(180, 111, 249)
+        TextBoxNombre.Visible = True
+
+        Label1Apellido.Visible = True
+        Label1Apellido.BackColor = RGB(180, 111, 249)
+        TextBox1Apellido.Visible = True
+
+        Label2Apellido.Visible = True
+        Label2Apellido.BackColor = RGB(180, 111, 249)
+        TextBox2Apellido.Visible = True
+
+        LabelTelefono.Visible = True
+        LabelTelefono.BackColor = RGB(180, 111, 249)
+        TextBoxTelefono.Visible = True
+
+        LabelMovil.Visible = True
+        LabelMovil.BackColor = RGB(180, 111, 249)
+        TextBoxMovil.Visible = True
+
+        LabelTipoDocumento.Visible = True
+        LabelTipoDocumento.BackColor = RGB(180, 111, 249)
+        TextBoxTipoDocumento.Visible = True
+
+        LabelSeguridadSocial.Visible = True
+        LabelSeguridadSocial.BackColor = RGB(180, 111, 249)
+        TextBoxSeguridadSocial.Visible = True
+
+        LabelCorreoElectronico.Visible = True
+        LabelCorreoElectronico.BackColor = RGB(180, 111, 249)
+        TextBoxCorreoElectronico.Visible = True
+
+        LabelDireccion.Visible = True
+        LabelDireccion.BackColor = RGB(180, 111, 249)
+        LabelNumPortal.BackColor = RGB(180, 111, 249)
+        LabelNumPiso.BackColor = RGB(180, 111, 249)
+        LabelLetraPiso.BackColor = RGB(180, 111, 249)
+        LabelCodPost.BackColor = RGB(180, 111, 249)
+        TextBoxDireccion.Visible = True
+
+        LabelNif.Visible = False
+        TextBoxNif.Visible = False
+
+        LabelCuentaBancaria.Visible = True
+        LabelCuentaBancaria.BackColor = RGB(180, 111, 249)
+        ComboBoxTipoCuenta.Visible = True
+        TextBoxPaisCuenta.Visible = True
+        TextBoxCuentaBancariaEntidad.Visible = True
+        TextBoxCuentaBancariaOficina.Visible = True
+        TextBoxCuentaBancariaControl.Visible = True
+        TextBoxCuentaBancariaNumero.Visible = True
+
+        LabelFechaRegistro.Visible = True
+        LabelFechaRegistro.BackColor = RGB(180, 111, 249)
+        TextBoxFechaRegistro.Visible = True
+
+        LabelCodigo.Visible = True
+        LabelCodigo.BackColor = RGB(180, 111, 249)
+        TextBoxCodigo.Visible = True
+
+        FrameSexo.Visible = True
+        FrameSexo.BackColor = RGB(180, 111, 249)
+        OptionButtonHombre.Visible = True
+        OptionButtonHombre.BackColor = RGB(180, 111, 249)
+        OptionButtonMujer.Visible = True
+        OptionButtonMujer.BackColor = RGB(180, 111, 249)
+
+        LabelEstadoCivil.Visible = True
+        LabelEstadoCivil.BackColor = RGB(180, 111, 249)
+        ComboBoxEstadoCivil.Visible = True
+
+        LabelFechaNacimiento.Visible = True
+        LabelFechaNacimiento.BackColor = RGB(180, 111, 249)
+        TextBoxFechaNacimiento.Visible = True
+
+    ElseIf (TipoPersonal = 4) Then
+        TipoPersonal = 0
+        ' Cambio a Rojo el color del fondo 226, 15, 15
+        ' Pongo en verde los campos obligatorios 20, 170, 15
+        ' Pongo el resto de campos en Rojo oscuro 193, 19, 19
+
+        Fondo.BackColor = RGB(226, 239, 218)
+
+        LabelNombre.Visible = True
+        LabelNombre.BackColor = RGB(180, 111, 249)
+        TextBoxNombre.Visible = True
+
+        Label1Apellido.Visible = True
+        Label1Apellido.BackColor = RGB(180, 111, 249)
+        TextBox1Apellido.Visible = True
+
+        Label2Apellido.Visible = True
+        Label2Apellido.BackColor = RGB(51, 153, 255)
+        TextBox2Apellido.Visible = True
+
+        LabelTelefono.Visible = True
+        LabelTelefono.BackColor = RGB(180, 111, 249)
+        TextBoxTelefono.Visible = True
+
+        LabelMovil.Visible = True
+        LabelMovil.BackColor = RGB(180, 111, 249)
+        TextBoxMovil.Visible = True
+
+        LabelTipoDocumento.Visible = True
+        LabelTipoDocumento.BackColor = RGB(180, 111, 249)
+        TextBoxTipoDocumento.Visible = True
+
+        LabelSeguridadSocial.Visible = False
+        TextBoxSeguridadSocial.Visible = False
+
+        LabelCorreoElectronico.Visible = True
+        LabelCorreoElectronico.BackColor = RGB(180, 111, 249)
+        TextBoxCorreoElectronico.Visible = True
+
+        LabelDireccion.Visible = True
+        LabelDireccion.BackColor = RGB(180, 111, 249)
+        LabelNumPortal.BackColor = RGB(180, 111, 249)
+        LabelNumPiso.BackColor = RGB(180, 111, 249)
+        LabelLetraPiso.BackColor = RGB(180, 111, 249)
+        LabelCodPost.BackColor = RGB(180, 111, 249)
+        TextBoxDireccion.Visible = True
+
+        LabelNif.Visible = True
+        LabelNif.BackColor = RGB(180, 111, 249)
+        TextBoxNif.Visible = True
+
+        LabelCuentaBancaria.Visible = True
+        LabelCuentaBancaria.BackColor = RGB(180, 111, 249)
+        ComboBoxTipoCuenta.Visible = True
+        TextBoxPaisCuenta.Visible = True
+        TextBoxCuentaBancariaEntidad.Visible = True
+        TextBoxCuentaBancariaOficina.Visible = True
+        TextBoxCuentaBancariaControl.Visible = True
+        TextBoxCuentaBancariaNumero.Visible = True
+
+        LabelFechaRegistro.Visible = True
+        LabelFechaRegistro.BackColor = RGB(51, 153, 255)
+        TextBoxFechaRegistro.Visible = True
+
+        LabelCodigo.Visible = True
+        LabelCodigo.BackColor = RGB(180, 111, 249)
+        TextBoxCodigo.Visible = True
+
+        FrameSexo.Visible = False
+        OptionButtonHombre.Visible = False
+        OptionButtonMujer.Visible = False
+
+        LabelEstadoCivil.Visible = False
+        ComboBoxEstadoCivil.Visible = False
+
+        LabelFechaNacimiento.Visible = False
+        TextBoxFechaNacimiento.Visible = False
+    End If
+End Function
