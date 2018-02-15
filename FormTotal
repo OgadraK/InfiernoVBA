@@ -6,7 +6,7 @@ Dim CodigoCompleto  As String
 
 Dim DniNieFinal     As String
 
-Dim Fecha As Date
+Dim Fecha           As Date
 
 Dim TipoDeVia       As String
 Dim Direccion       As String
@@ -90,6 +90,7 @@ Function Formulario()
         Dim CondicionDireccion  As Boolean
         Dim CondicionSegSoc     As Boolean
         Dim CondicionDNI        As Boolean
+        Dim CondicionNif        As Boolean
         Dim CondicionCuentaBanc As Boolean
         Dim CondicionFechaReg   As Boolean
         Dim CondicionFechaNac   As Boolean
@@ -97,97 +98,149 @@ Function Formulario()
         Dim CondicionEstadoCiv  As Boolean
 
     Codigo = 0
-    CondicionNombre = False
-        CondicionApellido1 = False
-        CondicionApellido2 = False
-        CondicionTelefono = False
-        CondicionMovil = False
-        CondicionCorreo = False
-        CondicionDireccion = False
-        CondicionSegSoc = False
-        CondicionDNI = False
+    CondicionNombre         = False
+        CondicionApellido1  = False
+        CondicionApellido2  = False
+        CondicionTelefono   = False
+        CondicionMovil      = False
+        CondicionCorreo     = False
+        CondicionDireccion  = False
+        CondicionSegSoc     = False
+        CondicionDNI        = False
+        CondicionNif        = False
         CondicionCuentaBanc = False
-        CondicionFechaReg = False
-        CondicionFechaNac = False
-        CondicionSexo = False
-        CondicionEstadoCiv = False
+        CondicionFechaReg   = False
+        CondicionFechaNac   = False
+        CondicionSexo       = False
+        CondicionEstadoCiv  = False
 
-'Condiciones en función de las funciones
+ 'Condiciones en función de las funciones
    Codigo = Calc_Hoja(TipoPersonal)
 
-   If (Validar_Nombre_Ape(TextBoxNombre.Text) = True) Then
+    'Siempre Obligatorio
+    If (Validar_Nombre_Ape(TextBoxNombre.Text) = True) Then
         CondicionNombre = True
     Else: MsgBox ("Error en el nombre")
     End If
 
+    'Siempre Obligatorio
     If (Validar_Nombre_Ape(TextBox1Apellido.Text) = True) Then
        CondicionApellido1 = True
     Else: MsgBox ("Error en el primer apellido")
     End If
 
-    If (Validar_Nombre_Ape(TextBox2Apellido.Text) = True) Then
-        CondicionApellido2 = True
-    Else: MsgBox ("Error en el segundo apellido")
+    If (TipoPersonal=3) Then
+        If (Validar_Nombre_Ape(TextBox2Apellido.Text) = True) Then
+            CondicionApellido2 = True
+        Else: MsgBox ("Error en el segundo apellido")
+        End If
     End If
 
-    If (Validar_Telefono(TextBoxTelefono.Text) = True) Then
-        CondicionTelefono = True
-   Else: MsgBox ("Error en el telefono fijo")
+    If (TipoPersonal=3 Or TipoPersonal=4) Then
+        If (Validar_Telefono(TextBoxTelefono.Text) = True) Then
+            CondicionTelefono = True
+        Else: MsgBox ("Error en el telefono fijo")
+        End If
     End If
 
-    If (Validar_Movil(TextBoxMovil.Text) = True) Then
-        CondicionMovil = True
-    Else: MsgBox ("Error en el telefono movil")
+    If (TipoPersonal=1 Or TipoPersonal=3 Or TipoPersonal=4) Then
+        If (Validar_Movil(TextBoxMovil.Text) = True) Then
+            CondicionMovil = True
+        Else: MsgBox ("Error en el telefono movil")
+        End If
     End If
 
-    If (Validar_Correo(TextBoxCorreoElectronico.Text) = True) Then
-        CondicionCorreo = True
-    Else: MsgBox ("Error en el correo electronico")
-    End If
-
-    If (Validar_Direccion() = True) Then
-        CondicionDireccion = True
-    Else: MsgBox ("Error en la direccion")
-    End If
-
-    If (Validar_SegSoc(TextBoxSeguridadSocial.Text) = True) Then
-        CondicionSegSoc = True
-    Else: MsgBox ("Error en el número de la seguridad social")
-    End If
-
+    'Siempre Obligatorio
     If (Validar_Dni(TextBoxTipoDocumento.Text) = True) Then
         CondicionDNI = True
     Else: MsgBox ("Error en el Nie/Dni")
     End If
 
+    If (TipoPersonal=3) Then
+        If (Validar_SegSoc(TextBoxSeguridadSocial.Text) = True) Then
+            CondicionSegSoc = True
+        Else: MsgBox ("Error en el número de la seguridad social")
+        End If
+    End IF
+
+    'Siempre Obligatorio
+    If (Validar_Correo(TextBoxCorreoElectronico.Text) = True) Then
+        CondicionCorreo = True
+    Else: MsgBox ("Error en el correo electronico")
+    End If
+
+    If (TipoPersonal=1 Or TipoPersonal=3 Or TipoPersonal=4) Then
+        If (Validar_Direccion() = True) Then
+            CondicionDireccion = True
+        Else: MsgBox ("Error en la direccion")
+        End If
+    End If
+
+    If (TipoPersonal=4) Then
+      If (Validar_Nif(TextBoxNif.Text) = True) Then
+          CondicionNif = True
+      Else: MsgBox ("Error en el Nif")
+      End If
+    End IF
+
+    'Siempre Obligatorio
     If (Validar_Tipo_Cuenta() = True) Then
         CondicionCuentaBanc = True
     Else: MsgBox ("Error en el número de cuenta bancaria")
     End If
 
-    If (Validar_FechaReg() = True) Then
-        CondicionFechaReg = True
-    Else: MsgBox ("Error en la fecha de registro")
+    If (TipoPersonal=3) Then
+        If (Validar_FechaNac() = True) Then
+            CondicionFechaNac = True
+        Else: MsgBox ("Error en la fecha de nacimiento")
+        End If
     End If
 
-    If (Validar_FechaNac() = True) Then
-        CondicionFechaNac = True
-    Else: MsgBox ("Error en la fecha de nacimiento")
+    If (TipoPersonal=1 Or TipoPersonal=3) Then
+        If (Validar_FechaReg() = True) Then
+            CondicionFechaReg = True
+        Else: MsgBox ("Error en la fecha de registro")
+        End If
     End If
 
-    If (Validar_Sexo() = True) Then
-        CondicionSexo = True
-    Else: MsgBox ("Error en la seleccion de sexo")
+    If (TipoPersonal=3) Then
+        If (Validar_Sexo() = True) Then
+            CondicionSexo = True
+        Else: MsgBox ("Error en la seleccion de sexo")
+        End If
     End If
 
-    If (Validar_EstadoCiv() = True) Then
-            CondicionEstadoCiv = True
-    Else: MsgBox ("Error en la seleccion de estado civil")
+    If (TipoPersonal=3) Then
+        If (Validar_EstadoCiv() = True) Then
+                CondicionEstadoCiv = True
+        Else: MsgBox ("Error en la seleccion de estado civil")
+        End If
     End If
 
-    If (CondicionNombre = True And CondicionApellido1 = True And CondicionApellido2 = True And CondicionTelefono = True And CondicionMovil = True And CondicionCorreo = True And CondicionDireccion = True And CondicionSegSoc = True And CondicionDNI = True And CondicionCuentaBanc = True And FechaReg = True And CondicionFechaNac = True And CondicionSexo = True And CondicionEstadoCiv = True) Then
-        Formulario = True
-    Else: Formulario = False
+    'Validar Clientes Externos
+    If (TipoPersonal=1) Then
+      If (CondicionNombre = True And CondicionApellido1 = True And CondicionMovil = True And CondicionDNI = True And CondicionCorreo = True And CondicionDireccion = True And CondicionCuentaBanc = True And FechaReg = True) Then
+          Formulario = True
+      Else: Formulario = False
+      End If
+    'Validar Clientes Externos
+    ElseIf (TipoPersonal=2) Then
+      If (CondicionNombre = True And CondicionApellido1 = True And CondicionDNI = True And CondicionCorreo = True And CondicionCuentaBanc = True) Then
+          Formulario = True
+      Else: Formulario = False
+      End If
+    'Validar Empleados
+    ElseIf (TipoPersonal=3) Then
+      If (CondicionNombre = True And CondicionApellido1 = True And CondicionApellido2 = True And CondicionTelefono = True And CondicionMovil = True And CondicionDNI = True And CondicionSegSoc = True And CondicionCorreo = True And CondicionDireccion = True And CondicionCuentaBanc = True And CondicionFechaNac = True And FechaReg = True And CondicionSexo = True And CondicionEstadoCiv = True) Then
+          Formulario = True
+      Else: Formulario = False
+      End If
+    'Validar Proveedores
+    Else
+      If (CondicionNombre = True And CondicionApellido1 = True And CondicionTelefono = True And CondicionMovil = True And CondicionDNI = True And CondicionCorreo = True And CondicionDireccion = True And CondicionNif = True And CondicionCuentaBanc = True) Then
+          Formulario = True
+      Else: Formulario = False
+      End If
     End If
 End Function
 
@@ -198,7 +251,7 @@ Sub UserForm_Initialize()
     CampoObligatorio.BackColor = RGB(180, 111, 249)
     TipoPersonal = 0
     Mostrar_botones (TipoPersonal)
-    
+
     ComboBoxTipoCuenta.List = Array("TIPO", "IBAN", "CCC")
     ComboBoxEstadoCivil.List = Array("Estado", "Soltero", "Casado", "Separado", "Divorciado", "Viudo")
 
@@ -211,7 +264,7 @@ Sub UserForm_Initialize()
     ComboBoxDireccion.AddItem "Barrio"
     ComboBoxDireccion.AddItem "Paseo"
     ComboBoxDireccion.AddItem "Avenida"
-    
+
 End Sub
 
 Function Mostrar_botones(TipoPersonal As Integer)
@@ -291,10 +344,10 @@ Function Validar_FechaReg()
     If (IsDate(FechaReg)) Then
         If (FechaReg = Date) Then
                 Validar_FechaReg = True
-            End If
         Else: MsgBox ("La fecha ha de ser la de hoy")
         End If
     Else: MsgBox ("Ha de escribir la fecha en formato dd-mm-aaaa")
+    End If
 End Function
 
 Function Validar_FechaNac()
@@ -315,11 +368,11 @@ End Function
 
 Function Validar_Nombre_Ape(VarNombreApe As String)
     'Si no es un nombre ni está vacio
-    If IsNumeric(VarNombreApe) = False And VarNombreApe <> " " And VarNombreApe <> "  " And VarNombreApe <> "   " And VarNombreApe <> "    " Then
+    If IsNumeric(VarNombreApe) = False And VarNombreApe <> "" And VarNombreApe <> " " And VarNombreApe <> "  " And VarNombreApe <> "   " And VarNombreApe <> "    " Then
         Validar_Nombre_Ape = True
     'Si es un número o un carácter extraño
     Else:
-        MsgBox ("Ese nombre/apellido no es valido")
+        Validar_Nombre_Ape=false
     End If
 End Function
 
@@ -401,14 +454,14 @@ Function Validar_SegSoc(ss As String)
     Dim izq As String
     Dim dch As String
     Dim variable As String
-    
+
 	izq = Left(ss, 10)
     dch = Right(ss, 2)
-    
+
     izq = CLngLng(izq)
     dch = CLngLng(dch)
     variable = CLngLng(izq Mod CLngLng(97))
-    
+
     If (izq = drch) Then
         ss_chk = True
     End If
@@ -419,10 +472,12 @@ Function Validar_Dni(dni As String)
         Letras = Array("T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E")
     Dim Result As String
 
-'Si de la segunda cifra hasta la penultima no es numerico está mal
-    If IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False And dni <> " " And dni <> "  " And dni <> "   " And dni <> "" Then
+    If (dni = "" Or dni = " " Or dni = "  " Or dni = "   ") Then
+        Validar_Dni = False
+ 'Si de la segunda cifra hasta la penultima no es numerico está mal
+    ElseIf (IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False) Then
         MsgBox "Recuerda no introducir caracteres extraños", 16, "Introducir DNI"
-'Si la primera cifra es X es un NIE
+ ' Si la primera cifra es X es un NIE
     'x minúscula
     ElseIf (Left(dni, 1) = "x" Or Left(dni, 1) = "y" Or Left(dni, 1) = "z") Then
         MsgBox "La letra de su NIE ha de ser mayuscula"
@@ -447,7 +502,7 @@ Function Validar_Dni(dni As String)
                 MsgBox "La letra del NIE no coincide"
             End If
         End If
-'Time to dni
+ 'Time to dni
     Else:
     'Si el número es demasiado pequeño o grande
         If Len(Left(dni, Len(dni) - 1)) < 7 Or Len(Left(dni, Len(dni) - 1)) > 9 Then
@@ -468,24 +523,20 @@ Function Validar_Dni(dni As String)
     End If
 End Function
 
-Function Validar_Nif(dni As String)
-    If IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False And dni <> " " And dni <> "  " And dni <> "   " And dni <> "" Then
+Function Validar_Nif(nif As String)
+    If (nif = "" Or nif = " " Or nif = "  " Or nif = "   ") Then
+        Validar_Nif=false
+    ElseIf IsNumeric(Mid(nif, 2, Len(nif) - 2)) = False Then
         MsgBox "Recuerda no introducir caracteres extraños", 16, "Introducir DNI"
-    ElseIf (Left(dni, 1) = "k" Or Left(dni, 1) = "l" Or Left(dni, 1) = "m") Then
+    ElseIf (Left(nif, 1) = "k" Or Left(nif, 1) = "l" Or Left(nif, 1) = "m") Then
         MsgBox "La letra de su NIF ha de ser mayuscula"
-    ElseIf (Left(dni, 1) = "K" Or Left(dni, 1) = "L" Or Left(dni, 1) = "M") Then
-        If IsNumeric(Mid(dni, 2, Len(dni) - 2)) = False Then
+    ElseIf (Left(nif, 1) = "K" Or Left(nif, 1) = "L" Or Left(nif, 1) = "M") Then
+        If IsNumeric(Mid(nif, 2, Len(nif) - 2)) = False Then
             MsgBox "Debe estar seguido por números"
-        ElseIf Len(Mid(dni, 2, Len(dni) - 2)) <> 7 Then
+        ElseIf Len(Mid(nif, 2, Len(nif) - 2)) <> 7 Then
             MsgBox "ERROR : el NIF debe de tener 7 números"
         Else
-            Result = ((Int(Mid(dni, 2, Len(dni) - 2) Mod 23)))
-            If (dni = (Left(dni, Len(dni) - 1) & Letras(Result))) Then
-                Validar_Dni = True
-            Else:
-                Validar_Dni = False
-                MsgBox "La letra del NIE no coincide"
-            End If
+            Validar_Nif = True
         End If
     End If
 End Function
@@ -658,15 +709,15 @@ Function Validar_Direccion()
         mayorCodigo = 52080
 
         If TextBoxDireccion = "" Then
-            MsgBox "Rellenar campos correctamente de DIRECCION"
+            Validar_Direccion = false
         End If
 
         If TextBoxNumPortal = "" Or Not IsNumeric(TextBoxNumPortal) Then
-            MsgBox "Rellenar correctamente el numero"
+              Validar_Direccion = false
         End If
 
         If TextBoxCodPost = "" Or Not IsNumeric(TextBoxCodPost) Then
-            MsgBox "Rellenar correctamente el codigo postal"
+            Validar_Direccion = false
         ElseIf TextBoxCodPost < menorCodigo Or TextBoxCodPost > mayorCodigo Then
             MsgBox "el codigo postal tiene un rango de 1001  a  52080"
         Else
@@ -804,15 +855,15 @@ Function Personalizacion(TipoPersonal As Integer)
         ' Cambio a azul el color del fondo 51, 154, 231
         '51,153,255 azul
         '180, 111, 249    violeta
-        
+
         ' Pongo en verde los campos obligatorios 20, 170, 15
         ' Pongo el resto de campos en Azul oscuro 15, 76, 170
 
         Fondo.BackColor = RGB(212, 235, 247)
-        
-        
-        
-        
+
+
+
+
         LabelNombre.Visible = True
         LabelNombre.BackColor = RGB(180, 111, 249)
         TextBoxNombre.Visible = True
@@ -932,7 +983,7 @@ Function Personalizacion(TipoPersonal As Integer)
         LabelLetraPiso.BackColor = RGB(51, 153, 255)
         LabelCodPost.BackColor = RGB(51, 153, 255)
         TextBoxDireccion.Visible = True
-        
+
         LabelNif.Visible = False
         TextBoxNif.Visible = False
 
