@@ -1,0 +1,11 @@
+Sub UserForm_Initialize()
+    'cuando entra en el from carga partes del contenido
+    Sheets("Hoja5").Activate
+    For i = 1 To 10
+        ComboBoxCodigo.AddItem (Cells(i, 1))
+    Next
+End Sub
+
+Private Sub ComboBoxCodigo_Click()
+    TextBoxArticulo.Text = Cells(ComboBoxCodigo.ListIndex + 1, 2)
+End Sub
