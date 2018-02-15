@@ -119,8 +119,10 @@ Function Formulario()
         Dim CondicionFechaNac   As Boolean
         Dim CondicionSexo       As Boolean
         Dim CondicionEstadoCiv  As Boolean
+        Dim QueErrores          As String
 
     Codigo = 0
+    QueErrores = ""
     CondicionNombre         = False
         CondicionApellido1  = False
         CondicionApellido2  = False
@@ -143,100 +145,100 @@ Function Formulario()
     'Siempre Obligatorio
     If (Validar_Nombre_Ape(TextBoxNombre.Text) = True) Then
         CondicionNombre = True
-    Else: MsgBox ("Error en el nombre")
+    Else: QueErrores = QueErrores + "Error en el nombre" + Vbnewline
     End If
 
     'Siempre Obligatorio
     If (Validar_Nombre_Ape(TextBox1Apellido.Text) = True) Then
        CondicionApellido1 = True
-    Else: MsgBox ("Error en el primer apellido")
+    Else: QueErrores = QueErrores + "Error en el primer apellido" + Vbnewline
     End If
 
     If (TipoPersonal=3) Then
         If (Validar_Nombre_Ape(TextBox2Apellido.Text) = True) Then
             CondicionApellido2 = True
-        Else: MsgBox ("Error en el segundo apellido")
+        Else: QueErrores = QueErrores + "Error en el segundo apellido" + Vbnewline
         End If
     End If
 
     If (TipoPersonal=3 Or TipoPersonal=4) Then
         If (Validar_Telefono(TextBoxTelefono.Text) = True) Then
             CondicionTelefono = True
-        Else: MsgBox ("Error en el telefono fijo")
+        Else: QueErrores = QueErrores + "Error en el telefono fijo" + Vbnewline
         End If
     End If
 
     If (TipoPersonal=1 Or TipoPersonal=3 Or TipoPersonal=4) Then
         If (Validar_Movil(TextBoxMovil.Text) = True) Then
             CondicionMovil = True
-        Else: MsgBox ("Error en el telefono movil")
+        Else: QueErrores = QueErrores + "Error en el telefono movil" + Vbnewline
         End If
     End If
 
     'Siempre Obligatorio
     If (Validar_Dni(TextBoxTipoDocumento.Text) = True) Then
         CondicionDNI = True
-    Else: MsgBox ("Error en el Nie/Dni")
+    Else: QueErrores = QueErrores + "Error en el Nie/Dni" + Vbnewline
     End If
 
     If (TipoPersonal=3) Then
         If (Validar_SegSoc(TextBoxSeguridadSocial.Text) = True) Then
             CondicionSegSoc = True
-        Else: MsgBox ("Error en el número de la seguridad social")
+        Else: QueErrores = QueErrores + "Error en el número de la seguridad social" + Vbnewline
         End If
     End IF
 
     'Siempre Obligatorio
     If (Validar_Correo(TextBoxCorreoElectronico.Text) = True) Then
         CondicionCorreo = True
-    Else: MsgBox ("Error en el correo electronico")
+    Else: QueErrores = QueErrores + "Error en el correo electronico" + Vbnewline
     End If
 
     If (TipoPersonal=1 Or TipoPersonal=3 Or TipoPersonal=4) Then
         If (Validar_Direccion() = True) Then
             CondicionDireccion = True
-        Else: MsgBox ("Error en la direccion")
+        Else: QueErrores = QueErrores + "Error en la direccion" + Vbnewline
         End If
     End If
 
     If (TipoPersonal=4) Then
       If (Validar_Nif(TextBoxNif.Text) = True) Then
           CondicionNif = True
-      Else: MsgBox ("Error en el Nif")
+      Else: QueErrores = QueErrores + "Error en el Nif" + Vbnewline
       End If
     End IF
 
     'Siempre Obligatorio
     If (Validar_Tipo_Cuenta() = True) Then
         CondicionCuentaBanc = True
-    Else: MsgBox ("Error en el número de cuenta bancaria")
+    Else: QueErrores = QueErrores + "Error en el número de cuenta bancaria" + Vbnewline
     End If
 
     If (TipoPersonal=3) Then
         If (Validar_FechaNac() = True) Then
             CondicionFechaNac = True
-        Else: MsgBox ("Error en la fecha de nacimiento")
+        Else: QueErrores = QueErrores + "Error en la fecha de nacimiento" + Vbnewline
         End If
     End If
 
     If (TipoPersonal=1 Or TipoPersonal=3) Then
         If (Validar_FechaReg() = True) Then
             CondicionFechaReg = True
-        Else: MsgBox ("Error en la fecha de registro")
+        Else: QueErrores = QueErrores + "Error en la fecha de registro" + Vbnewline
         End If
     End If
 
     If (TipoPersonal=3) Then
         If (Validar_Sexo() = True) Then
             CondicionSexo = True
-        Else: MsgBox ("Error en la seleccion de sexo")
+        Else: QueErrores = QueErrores + "Error en la seleccion de sexo" + Vbnewline
         End If
     End If
 
     If (TipoPersonal=3) Then
         If (Validar_EstadoCiv() = True) Then
                 CondicionEstadoCiv = True
-        Else: MsgBox ("Error en la seleccion de estado civil")
+        Else: QueErrores = QueErrores + "Error en la seleccion de estado civil" + Vbnewline
         End If
     End If
 
@@ -244,25 +246,33 @@ Function Formulario()
     If (TipoPersonal=1) Then
       If (CondicionNombre = True And CondicionApellido1 = True And CondicionMovil = True And CondicionDNI = True And CondicionCorreo = True And CondicionDireccion = True And CondicionCuentaBanc = True And FechaReg = True) Then
           Formulario = True
-      Else: Formulario = False
+      Else
+        Formulario = False
+        MsgBox(QueErrores)
       End If
     'Validar Clientes Externos
     ElseIf (TipoPersonal=2) Then
       If (CondicionNombre = True And CondicionApellido1 = True And CondicionDNI = True And CondicionCorreo = True And CondicionCuentaBanc = True) Then
           Formulario = True
-      Else: Formulario = False
+      Else
+        Formulario = False
+        MsgBox(QueErrores)
       End If
     'Validar Empleados
     ElseIf (TipoPersonal=3) Then
       If (CondicionNombre = True And CondicionApellido1 = True And CondicionApellido2 = True And CondicionTelefono = True And CondicionMovil = True And CondicionDNI = True And CondicionSegSoc = True And CondicionCorreo = True And CondicionDireccion = True And CondicionCuentaBanc = True And CondicionFechaNac = True And FechaReg = True And CondicionSexo = True And CondicionEstadoCiv = True) Then
           Formulario = True
-      Else: Formulario = False
+      Else
+        Formulario = False
+        MsgBox(QueErrores)
       End If
     'Validar Proveedores
     Else
       If (CondicionNombre = True And CondicionApellido1 = True And CondicionTelefono = True And CondicionMovil = True And CondicionDNI = True And CondicionCorreo = True And CondicionDireccion = True And CondicionNif = True And CondicionCuentaBanc = True) Then
           Formulario = True
-      Else: Formulario = False
+      Else
+        Formulario = False
+        MsgBox(QueErrores)
       End If
     End If
 End Function
