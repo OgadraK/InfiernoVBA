@@ -1,20 +1,15 @@
-Dim TipoPersonal As Integer 'Usado
-Dim TipoCuenta As Boolean 'Usado Nuevo
-
+Dim TipoPersonal    As Integer 'Usado
+Dim TipoCuenta      As Boolean 'Usado Nuevo
 Dim LetraCodigo     As String
 Dim CodigoCompleto  As String
-
 Dim DniNieFinal     As String
-
 Dim Fecha           As Date
-
 Dim TipoDeVia       As String
 Dim Direccion       As String
 Dim NumeroPortal    As String
 Dim NumeroPiso      As String
 Dim LetraPiso       As String
 Dim CodPostal       As String
-
 Dim QueSexo         As String
 
 Sub UserForm_Initialize()
@@ -43,28 +38,83 @@ End Sub
 Private Sub CommandButtonGuardar_Click()
  'Introducir los datos
     If (Formulario = True) Then
-        Cells(Codigo + 1, 1).Value = CodigoCompleto
-        Cells(Codigo + 1, 2).Value = TextBoxNombre.Text
-        Cells(Codigo + 1, 3).Value = TextBox1Apellido.Text
-        Cells(Codigo + 1, 4).Value = TextBox2Apellido.Text
-        Cells(Codigo + 1, 5).Value = TextBoxTelefono.Text
-        Cells(Codigo + 1, 6).Value = TextBoxMovil.Text
-        Cells(Codigo + 1, 7).Value = TextBoxTipoDocumento.Text
-        Cells(Codigo + 1, 8).Value = TextBoxSeguridadSocial.Text
-        Cells(Codigo + 1, 9).Value = TextBoxCorreo.Text
-        Cells(Codigo + 1, 10).Value = ComboBoxDireccion.Value
-        Cells(Codigo + 1, 11).Value = TextBoxDireccion.Text
-        Cells(Codigo + 1, 12).Value = TextBoxNumPortal.Text
-        Cells(Codigo + 1, 13).Value = TextBoxNumPiso.Text
-        Cells(Codigo + 1, 14).Value = TextBoxLetraPiso.Text
-        Cells(Codigo + 1, 15).Value = TextBoxCodPost.Text
-        Cells(Codigo + 1, 16).Value = Provincia
-        Cells(Codigo + 1, 17).Value = TextBoxNif.Text
-        Cells(Codigo + 1, 18).Value = TextBoxCuentaBanc.Text
-        Cells(Codigo + 1, 19).Value = TextBoxFechaNacimiento.Text
-        Cells(Codigo + 1, 20).Value = TextBoxFechaRegistro.Text
-        Cells(Codigo + 1, 21).Value = QueSexo
-        Cells(Codigo + 1, 22).Value = ComboBoxEstadoCivil.Value
+        If (TipoPersonal=1) Then
+            Cells(Codigo + 1, 1).Value = CodigoCompleto
+            Cells(Codigo + 1, 2).Value = TextBoxNombre.Text
+            Cells(Codigo + 1, 3).Value = TextBox1Apellido.Text
+            Cells(Codigo + 1, 4).Value = TextBox2Apellido.Text
+            Cells(Codigo + 1, 5).Value = TextBoxTelefono.Text
+            Cells(Codigo + 1, 6).Value = TextBoxMovil.Text
+            Cells(Codigo + 1, 7).Value = TextBoxTipoDocumento.Text
+            Cells(Codigo + 1, 8).Value = TextBoxCorreoElectronico.Text
+            Cells(Codigo + 1, 9).Value = ComboBoxDireccion.Value
+            Cells(Codigo + 1, 10).Value = TextBoxDireccion.Text
+            Cells(Codigo + 1, 11).Value = TextBoxNumPortal.Text
+            Cells(Codigo + 1, 12).Value = TextBoxNumPiso.Text
+            Cells(Codigo + 1, 13).Value = TextBoxLetraPiso.Text
+            Cells(Codigo + 1, 14).Value = TextBoxCodPost.Text
+            Cells(Codigo + 1, 15).Value = Provincia
+            Cells(Codigo + 1, 16).Value = TextBoxCuentaBanc.Text
+            Cells(Codigo + 1, 17).Value = TextBoxFechaRegistro.Text
+        ElseIf (TipoPersonal=2) Then
+            Cells(Codigo + 1, 1).Value = CodigoCompleto
+            Cells(Codigo + 1, 2).Value = TextBoxNombre.Text
+            Cells(Codigo + 1, 3).Value = TextBox1Apellido.Text
+            Cells(Codigo + 1, 4).Value = TextBox2Apellido.Text
+            Cells(Codigo + 1, 5).Value = TextBoxTelefono.Text
+            Cells(Codigo + 1, 6).Value = TextBoxMovil.Text
+            Cells(Codigo + 1, 7).Value = TextBoxTipoDocumento.Text
+            Cells(Codigo + 1, 8).Value = TextBoxCorreoElectronico.Text
+            Cells(Codigo + 1, 9).Value = ComboBoxDireccion.Value
+            Cells(Codigo + 1, 10).Value = TextBoxDireccion.Text
+            Cells(Codigo + 1, 11).Value = TextBoxNumPortal.Text
+            Cells(Codigo + 1, 12).Value = TextBoxNumPiso.Text
+            Cells(Codigo + 1, 13).Value = TextBoxLetraPiso.Text
+            Cells(Codigo + 1, 14).Value = TextBoxCodPost.Text
+            Cells(Codigo + 1, 15).Value = Provincia
+            Cells(Codigo + 1, 16).Value = TextBoxCuentaBanc.Text
+            Cells(Codigo + 1, 17).Value = TextBoxFechaRegistro.Text
+        ElseIf (TipoPersonal=3) Then
+            Cells(Codigo + 1, 1).Value = CodigoCompleto
+            Cells(Codigo + 1, 2).Value = TextBoxNombre.Text
+            Cells(Codigo + 1, 3).Value = TextBox1Apellido.Text
+            Cells(Codigo + 1, 4).Value = TextBox2Apellido.Text
+            Cells(Codigo + 1, 5).Value = TextBoxTelefono.Text
+            Cells(Codigo + 1, 6).Value = TextBoxMovil.Text
+            Cells(Codigo + 1, 7).Value = TextBoxTipoDocumento.Text
+            Cells(Codigo + 1, 8).Value = TextBoxSeguridadSocial.Text
+            Cells(Codigo + 1, 9).Value = TextBoxCorreo.Text
+            Cells(Codigo + 1, 10).Value = ComboBoxDireccion.Value
+            Cells(Codigo + 1, 11).Value = TextBoxDireccion.Text
+            Cells(Codigo + 1, 12).Value = TextBoxNumPortal.Text
+            Cells(Codigo + 1, 13).Value = TextBoxNumPiso.Text
+            Cells(Codigo + 1, 14).Value = TextBoxLetraPiso.Text
+            Cells(Codigo + 1, 15).Value = TextBoxCodPost.Text
+            Cells(Codigo + 1, 16).Value = Provincia
+            Cells(Codigo + 1, 17).Value = TextBoxCuentaBanc.Text
+            Cells(Codigo + 1, 18).Value = TextBoxFechaNacimiento.Text
+            Cells(Codigo + 1, 19).Value = TextBoxFechaRegistro.Text
+            Cells(Codigo + 1, 20).Value = QueSexo
+            Cells(Codigo + 1, 21).Value = ComboBoxEstadoCivil.Value
+        Else
+            Cells(Codigo + 1, 1).Value = CodigoCompleto
+            Cells(Codigo + 1, 2).Value = TextBoxNombre.Text
+            Cells(Codigo + 1, 3).Value = TextBox1Apellido.Text
+            Cells(Codigo + 1, 4).Value = TextBox2Apellido.Text
+            Cells(Codigo + 1, 5).Value = TextBoxTelefono.Text
+            Cells(Codigo + 1, 6).Value = TextBoxMovil.Text
+            Cells(Codigo + 1, 7).Value = TextBoxTipoDocumento.Text
+            Cells(Codigo + 1, 8).Value = TextBoxCorreoElectronico.Text
+            Cells(Codigo + 1, 9).Value = ComboBoxDireccion.Value
+            Cells(Codigo + 1, 10).Value = TextBoxDireccion.Text
+            Cells(Codigo + 1, 11).Value = TextBoxNumPortal.Text
+            Cells(Codigo + 1, 12).Value = TextBoxNumPiso.Text
+            Cells(Codigo + 1, 13).Value = TextBoxLetraPiso.Text
+            Cells(Codigo + 1, 14).Value = TextBoxCodPost.Text
+            Cells(Codigo + 1, 15).Value = Provincia
+            Cells(Codigo + 1, 16).Value = TextBoxCuentaBanc.Text
+            Cells(Codigo + 1, 17).Value = TextBoxFechaRegistro.Text
+        End If
     End If
 End Sub
 
@@ -143,7 +193,7 @@ Function Formulario()
         CondicionEstadoCiv  = False
 
  'Condiciones en función de las funciones
-   Codigo = Calc_Hoja(TipoPersonal)
+    Codigo = Calc_Hoja(TipoPersonal)
 
     'Siempre Obligatorio
     If (Validar_Nombre_Ape(TextBoxNombre.Text) = True) Then
@@ -157,24 +207,30 @@ Function Formulario()
     Else: QueErrores = QueErrores + "Error en el primer apellido" + Vbnewline
     End If
 
-    If (TipoPersonal=3) Then
-        If (Validar_Nombre_Ape(TextBox2Apellido.Text) = True) Then
-            CondicionApellido2 = True
-        Else: QueErrores = QueErrores + "Error en el segundo apellido" + Vbnewline
+
+    If (Validar_Nombre_Ape(TextBox2Apellido.Text) = True) Then
+        CondicionApellido2 = True
+    Else
+        If (TextBox2Apellido.Text <> "") Then
+            QueErrores = QueErrores + "Error en el segundo apellido" + Vbnewline
         End If
     End If
 
-    If (TipoPersonal=3 Or TipoPersonal=4) Then
-        If (Validar_Telefono(TextBoxTelefono.Text) = True) Then
-            CondicionTelefono = True
-        Else: QueErrores = QueErrores + "Error en el telefono fijo" + Vbnewline
+
+    If (Validar_Telefono(TextBoxTelefono.Text) = True) Then
+        CondicionTelefono = True
+    Else
+        If (TextBoxTelefono.Text <> "") Then
+            QueErrores = QueErrores + "Error en el telefono fijo" + Vbnewline
         End If
     End If
 
-    If (TipoPersonal=1 Or TipoPersonal=3 Or TipoPersonal=4) Then
-        If (Validar_Movil(TextBoxMovil.Text) = True) Then
-            CondicionMovil = True
-        Else: QueErrores = QueErrores + "Error en el telefono movil" + Vbnewline
+
+    If (Validar_Movil(TextBoxMovil.Text) = True) Then
+        CondicionMovil = True
+    Else
+        If (TextBoxMovil.Text <> "") Then
+            QueErrores = QueErrores + "Error en el telefono movil" + Vbnewline
         End If
     End If
 
@@ -197,18 +253,21 @@ Function Formulario()
     Else: QueErrores = QueErrores + "Error en el correo electronico" + Vbnewline
     End If
 
-    If (TipoPersonal=1 Or TipoPersonal=3 Or TipoPersonal=4) Then
-        If (Validar_Direccion() = True) Then
-            CondicionDireccion = True
-        Else: QueErrores = QueErrores + "Error en la direccion" + Vbnewline
+
+    If (Validar_Direccion() = True) Then
+        CondicionDireccion = True
+    Else
+        If (TextBoxDireccion.Text <> "" Or TextBoxNumPortal.Text <> "" Or TextBoxNumPiso.Text <> "" Or TextBoxLetraPiso.Text <> "" Or TextBoxCodPost.Text <> "") Then
+            QueErrores = QueErrores + "Error en la direccion" + Vbnewline
         End If
     End If
 
+
     If (TipoPersonal=4) Then
-      If (Validar_Nif(TextBoxNif.Text) = True) Then
-          CondicionNif = True
-      Else: QueErrores = QueErrores + "Error en el Nif" + Vbnewline
-      End If
+        If (Validar_Nif(TextBoxNif.Text) = True) Then
+            CondicionNif = True
+        Else: QueErrores = QueErrores + "Error en el Nif" + Vbnewline
+        End If
     End IF
 
     'Siempre Obligatorio
@@ -224,10 +283,11 @@ Function Formulario()
         End If
     End If
 
-    If (TipoPersonal=1 Or TipoPersonal=3) Then
-        If (Validar_FechaReg() = True) Then
-            CondicionFechaReg = True
-        Else: QueErrores = QueErrores + "Error en la fecha de registro" + Vbnewline
+    If (Validar_FechaReg() = True) Then
+        CondicionFechaReg = True
+    Else
+        If (TextBoxFechaRegistro.Text <> "") Then
+            QueErrores = QueErrores + "Error en la fecha de registro" + Vbnewline
         End If
     End If
 
@@ -240,7 +300,7 @@ Function Formulario()
 
     If (TipoPersonal=3) Then
         If (Validar_EstadoCiv() = True) Then
-                CondicionEstadoCiv = True
+            CondicionEstadoCiv = True
         Else: QueErrores = QueErrores + "Error en la seleccion de estado civil" + Vbnewline
         End If
     End If
@@ -250,7 +310,7 @@ Function Formulario()
           Formulario = True
       Else
         Formulario = False
-        MsgBox(QueErrores)
+        MsgBox("Errores: " + Vbnewline + QueErrores)
       End If
     'Validar Clientes Externos
     ElseIf (TipoPersonal=2) Then
@@ -258,7 +318,7 @@ Function Formulario()
           Formulario = True
       Else
         Formulario = False
-        MsgBox(QueErrores)
+        MsgBox("Errores: " + Vbnewline + QueErrores)
       End If
     'Validar Empleados
     ElseIf (TipoPersonal=3) Then
@@ -266,7 +326,7 @@ Function Formulario()
           Formulario = True
       Else
         Formulario = False
-        MsgBox(QueErrores)
+        MsgBox("Errores: " + Vbnewline + QueErrores)
       End If
     'Validar Proveedores
     ElseIf (TipoPersonal=4) Then
@@ -274,7 +334,7 @@ Function Formulario()
           Formulario = True
       Else
         Formulario = False
-        MsgBox(QueErrores)
+        MsgBox("Errores: " + Vbnewline + QueErrores)
       End If
     End If
 End Function
@@ -314,16 +374,16 @@ Function Calc_Hoja(quehoja As Integer)
     NumHoja = 0
 
     If (quehoja = 1) Then
-        Sheets("Hoja1").Activate
+        Sheets("C.Externo").Activate
         LetraCodigo = "CE"
     ElseIf (quehoja = 2) Then
-        Sheets("Hoja2").Activate
+        Sheets("C.Interno").Activate
         LetraCodigo = "CI"
     ElseIf (quehoja = 3) Then
-        Sheets("Hoja3").Activate
+        Sheets("Empleado").Activate
         LetraCodigo = "EM"
     ElseIf (quehoja = 4) Then
-        Sheets("Hoja4").Activate
+        Sheets("Proveedor").Activate
         LetraCodigo = "PR"
     End If
 
