@@ -4,8 +4,23 @@ Sub UserForm_Initialize()
     For i = 1 To 10
         ComboBoxCodigo.AddItem (Cells(i, 1))
     Next
+    ComboBoxCodigo.Text = ComboBoxCodigo.List(0)
 End Sub
 
 Private Sub ComboBoxCodigo_Click()
-    TextBoxArticulo.Text = Cells(ComboBoxCodigo.ListIndex + 1, 2)
+    'Cuando clickas el ComboBox le asigna el Valor correspondiente
+    Me.LabelArticulo = Cells(ComboBoxCodigo.ListIndex + 1, 2)
+End Sub
+
+Sub CommandButtonComprar_Click()
+    If (ComboBoxCodigo.ListIndex >= 0 And ComboBoxCodigo.ListIndex < 10) Then
+        If (IsNumeric(TextBoxCantidad.Value) = True) Then
+            If ((Cells(ComboBoxCodigo.Value, 3) - TextBoxCantidad.Value) > 0) Then
+                Cells(ComboBoxCodigo.Value, 3) = Cells(ComboBoxCodigo.Value, 3) - TextBoxCantidad.Value
+            Else: MsgBox ("No puede comprar más de lo que hay en stock")
+            End If
+        Else: MsgBox ("La cantidad ha de ser numérica")
+        End If
+    Else: MsgBox ("Ha de seleccionar un producto para tramitar su compra")
+    End If
 End Sub
